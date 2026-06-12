@@ -29,6 +29,7 @@ function getLocation() {
     },
   );
 }
+
 const api_key = "8ebc6ad2d22793ca8b8f30adbd06d7a3";
 document.getElementById("locationBtn").addEventListener("click", getLocation);
 
@@ -61,12 +62,12 @@ function getWeather(location = "", lat = "", lon = "") {
 
   let type = document.getElementById("info_type").value;
 
-  let units = document.getElementById("weather-units").value;
+  let unitsval = document.getElementById("weather-units").value;
 
   if (location) {
-    url = `https://api.openweathermap.org/data/2.5/${type}?q=${location}&appid=${api_key}&units=${units}`;
+    url = `https://api.openweathermap.org/data/2.5/${type}?q=${location}&appid=${api_key}&units=${unitsval}`;
   } else {
-    url = `https://api.openweathermap.org/data/2.5/${type}?lat=${lat}&lon=${lon}&appid=${api_key}&units=${units}`;
+    url = `https://api.openweathermap.org/data/2.5/${type}?lat=${lat}&lon=${lon}&appid=${api_key}&units=${unitsval}`;
   }
 
   //   console.log(url);
@@ -76,7 +77,12 @@ function getWeather(location = "", lat = "", lon = "") {
     .then((data) => {
       //   console.log(data);
 
-      const units = getUnits(units);
+      if (data.cod && Number(data.cod) !== 200) {
+        weatherDiv.innerHTML = `<p style="color:red;text-align:center;">${data.message}</p>`;
+        return;
+      }
+
+      const units = getUnits(unitsval);
 
       if (type === "forecast") {
         const forecastHTML = data.list
@@ -143,6 +149,8 @@ function getWeather(location = "", lat = "", lon = "") {
       }
     })
     .catch((error) => {
+      const weatherDiv = document.getElementById("weather");
+      weatherDiv.innerHTML = `<p style='color:Red;text-align:Center;'>Enter the correct city!</p>`;
       console.log(error);
     });
 }
