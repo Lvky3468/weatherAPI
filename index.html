@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form id="form">
+      <label for="info_type">weather information type:</label>
+      <select name="type" id="info_type" required>
+        <option value="weather" selected>weather</option>
+        <option value="forecast">forecast</option>
+      </select>
+
+      <label for="weather-units">Select Weather Units:</label>
+      <select id="weather-units" name="units" required>
+        <option value="metric" selected>Metric (°C, m/s, mm)</option>
+        <option value="imperial">Imperial (°F, mph, in)</option>
+        <option value="standard">Standard / Scientific (K, m/s, mm)</option>
+      </select>
+
+      <button type="button" id="locationBtn">Get Location</button>
+      <span>or</span>
+      <div>
+        <label for="city">Enter City Name </label>
+        <input
+          type="text"
+          id="city"
+          placeholder="Enter city name..."
+          required
+        />
+        <button type="submit">submit</button>
+      </div>
+    </form>
+    <div id="weather"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
