@@ -133,6 +133,7 @@ button:active {
 @media (max-width: 768px) {
   #form {
     flex-direction: column;
+    align-items: center;
   }
 
   #form div {
